@@ -30,20 +30,21 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.LabelCont = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button6 = new System.Windows.Forms.Button();
+            this.disconnect = new System.Windows.Forms.Button();
+            this.connect = new System.Windows.Forms.Button();
+            this.holi = new System.Windows.Forms.Label();
+            this.historial = new System.Windows.Forms.Button();
             this.SELECT = new System.Windows.Forms.Button();
             this.NEXT = new System.Windows.Forms.Button();
             this.PREVIOUS = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.LabelIntro = new System.Windows.Forms.Label();
-            this.Nombre = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CONNAMES = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CONNAMES)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -55,11 +56,12 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.button1.Location = new System.Drawing.Point(1503, 903);
+            this.button1.Location = new System.Drawing.Point(1289, 597);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(338, 125);
+            this.button1.Size = new System.Drawing.Size(225, 80);
             this.button1.TabIndex = 1;
-            this.button1.Text = "SIGN IN";
+            this.button1.Text = "LOG IN";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.AutoSizeChanged += new System.EventHandler(this.Form1_Load);
             this.button1.FontChanged += new System.EventHandler(this.Form1_Load);
@@ -79,11 +81,12 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
             this.button2.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.button2.Location = new System.Drawing.Point(1002, 903);
+            this.button2.Location = new System.Drawing.Point(720, 597);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(338, 125);
+            this.button2.Size = new System.Drawing.Size(225, 80);
             this.button2.TabIndex = 2;
-            this.button2.Text = "LOG IN";
+            this.button2.Text = "SIGN IN";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.FontChanged += new System.EventHandler(this.Form1_Load);
             this.button2.LocationChanged += new System.EventHandler(this.Form1_Load);
@@ -92,94 +95,70 @@
             this.button2.MouseEnter += new System.EventHandler(this.button2_MouseEnter);
             this.button2.MouseLeave += new System.EventHandler(this.button2_MouseLeave);
             // 
-            // button3
+            // disconnect
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI Semibold", 16.2F, System.Drawing.FontStyle.Bold);
-            this.button3.ForeColor = System.Drawing.SystemColors.MenuBar;
-            this.button3.Location = new System.Drawing.Point(2468, 1450);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(372, 84);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "DESCONECTAR";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.FontChanged += new System.EventHandler(this.Form1_Load);
-            this.button3.LocationChanged += new System.EventHandler(this.Form1_Load);
-            this.button3.TabStopChanged += new System.EventHandler(this.Form1_Load);
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            this.button3.MouseEnter += new System.EventHandler(this.button3_MouseEnter);
-            this.button3.MouseLeave += new System.EventHandler(this.button3_MouseLeave);
+            this.disconnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.disconnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.disconnect.Font = new System.Drawing.Font("Segoe UI Semibold", 16.2F, System.Drawing.FontStyle.Bold);
+            this.disconnect.ForeColor = System.Drawing.SystemColors.MenuBar;
+            this.disconnect.Location = new System.Drawing.Point(1570, 776);
+            this.disconnect.Margin = new System.Windows.Forms.Padding(2);
+            this.disconnect.Name = "disconnect";
+            this.disconnect.Size = new System.Drawing.Size(248, 54);
+            this.disconnect.TabIndex = 3;
+            this.disconnect.Text = "DESCONECTAR";
+            this.disconnect.UseVisualStyleBackColor = false;
+            this.disconnect.FontChanged += new System.EventHandler(this.Form1_Load);
+            this.disconnect.LocationChanged += new System.EventHandler(this.Form1_Load);
+            this.disconnect.TabStopChanged += new System.EventHandler(this.Form1_Load);
+            this.disconnect.Click += new System.EventHandler(this.button3_Click);
+            this.disconnect.Enter += new System.EventHandler(this.disconnect_Enter);
+            this.disconnect.Leave += new System.EventHandler(this.disconnect_Leave);
+            this.disconnect.MouseEnter += new System.EventHandler(this.button3_MouseEnter);
+            this.disconnect.MouseLeave += new System.EventHandler(this.button3_MouseLeave);
             // 
-            // button4
+            // connect
             // 
-            this.button4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button4.AutoSize = true;
-            this.button4.BackColor = System.Drawing.Color.Aquamarine;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
-            this.button4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.button4.Location = new System.Drawing.Point(1227, 1236);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(354, 109);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "CONECTAR";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.connect.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.connect.AutoSize = true;
+            this.connect.BackColor = System.Drawing.Color.Aquamarine;
+            this.connect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.connect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.connect.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
+            this.connect.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.connect.Location = new System.Drawing.Point(1003, 814);
+            this.connect.Margin = new System.Windows.Forms.Padding(2);
+            this.connect.Name = "connect";
+            this.connect.Size = new System.Drawing.Size(236, 70);
+            this.connect.TabIndex = 4;
+            this.connect.Text = "CONECTAR";
+            this.connect.UseVisualStyleBackColor = false;
+            this.connect.Click += new System.EventHandler(this.button4_Click);
             // 
-            // LabelCont
+            // holi
             // 
-            this.LabelCont.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.LabelCont.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LabelCont.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelCont.Location = new System.Drawing.Point(87, 42);
-            this.LabelCont.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.LabelCont.Name = "LabelCont";
-            this.LabelCont.Size = new System.Drawing.Size(294, 175);
-            this.LabelCont.TabIndex = 14;
+            this.holi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.holi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.holi.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.holi.Location = new System.Drawing.Point(22, 17);
+            this.holi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.holi.Name = "holi";
+            this.holi.Size = new System.Drawing.Size(92, 79);
+            this.holi.TabIndex = 14;
             // 
-            // button5
+            // historial
             // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.button5.Location = new System.Drawing.Point(2472, 42);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(396, 108);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "HISTORIAL";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(2886, 1648);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // button6
-            // 
-            this.button6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button6.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
-            this.button6.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.button6.Location = new System.Drawing.Point(1227, 538);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(411, 98);
-            this.button6.TabIndex = 16;
-            this.button6.Text = "MINIGAME";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.historial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.historial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.historial.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.historial.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.historial.Location = new System.Drawing.Point(1302, 507);
+            this.historial.Name = "historial";
+            this.historial.Size = new System.Drawing.Size(264, 69);
+            this.historial.TabIndex = 15;
+            this.historial.Text = "HISTORIAL";
+            this.historial.UseVisualStyleBackColor = false;
+            this.historial.Click += new System.EventHandler(this.button5_Click);
             // 
             // SELECT
             // 
@@ -189,9 +168,10 @@
             this.SELECT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SELECT.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
             this.SELECT.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.SELECT.Location = new System.Drawing.Point(1002, 1105);
+            this.SELECT.Location = new System.Drawing.Point(862, 706);
+            this.SELECT.Margin = new System.Windows.Forms.Padding(2);
             this.SELECT.Name = "SELECT";
-            this.SELECT.Size = new System.Drawing.Size(338, 125);
+            this.SELECT.Size = new System.Drawing.Size(225, 80);
             this.SELECT.TabIndex = 17;
             this.SELECT.Text = "SELECT";
             this.SELECT.UseVisualStyleBackColor = false;
@@ -204,9 +184,10 @@
             this.NEXT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NEXT.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
             this.NEXT.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.NEXT.Location = new System.Drawing.Point(1503, 1105);
+            this.NEXT.Location = new System.Drawing.Point(1177, 706);
+            this.NEXT.Margin = new System.Windows.Forms.Padding(2);
             this.NEXT.Name = "NEXT";
-            this.NEXT.Size = new System.Drawing.Size(338, 125);
+            this.NEXT.Size = new System.Drawing.Size(225, 80);
             this.NEXT.TabIndex = 18;
             this.NEXT.Text = "NEXT";
             this.NEXT.UseVisualStyleBackColor = false;
@@ -220,9 +201,10 @@
             this.PREVIOUS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PREVIOUS.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold);
             this.PREVIOUS.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.PREVIOUS.Location = new System.Drawing.Point(545, 1105);
+            this.PREVIOUS.Location = new System.Drawing.Point(530, 730);
+            this.PREVIOUS.Margin = new System.Windows.Forms.Padding(2);
             this.PREVIOUS.Name = "PREVIOUS";
-            this.PREVIOUS.Size = new System.Drawing.Size(338, 125);
+            this.PREVIOUS.Size = new System.Drawing.Size(225, 80);
             this.PREVIOUS.TabIndex = 19;
             this.PREVIOUS.Text = "PREVIOUS";
             this.PREVIOUS.UseVisualStyleBackColor = false;
@@ -230,9 +212,10 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(1002, 242);
+            this.pictureBox2.Location = new System.Drawing.Point(602, 123);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1000, 655);
+            this.pictureBox2.Size = new System.Drawing.Size(575, 330);
             this.pictureBox2.TabIndex = 20;
             this.pictureBox2.TabStop = false;
             // 
@@ -240,47 +223,69 @@
             // 
             this.LabelIntro.AutoSize = true;
             this.LabelIntro.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelIntro.Location = new System.Drawing.Point(930, 105);
+            this.LabelIntro.Location = new System.Drawing.Point(620, 67);
+            this.LabelIntro.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LabelIntro.Name = "LabelIntro";
-            this.LabelIntro.Size = new System.Drawing.Size(718, 61);
+            this.LabelIntro.Size = new System.Drawing.Size(467, 39);
             this.LabelIntro.TabIndex = 30;
             this.LabelIntro.Text = "ESCOGE A TU PERSONAJE";
             // 
-            // Nombre
+            // pictureBox1
             // 
-            this.Nombre.AutoSize = true;
-            this.Nombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Nombre.Location = new System.Drawing.Point(930, 940);
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Size = new System.Drawing.Size(214, 61);
-            this.Nombre.TabIndex = 31;
-            this.Nombre.Text = "Nombre";
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1924, 1052);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // CONNAMES
+            // 
+            this.CONNAMES.ColumnHeadersHeight = 29;
+            this.CONNAMES.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
+            this.CONNAMES.Location = new System.Drawing.Point(100, 225);
+            this.CONNAMES.Name = "CONNAMES";
+            this.CONNAMES.RowHeadersWidth = 51;
+            this.CONNAMES.Size = new System.Drawing.Size(298, 318);
+            this.CONNAMES.TabIndex = 34;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 125;
             // 
             // Interfaz
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(2886, 1648);
-            this.Controls.Add(this.Nombre);
+            this.ClientSize = new System.Drawing.Size(1924, 1052);
+            this.Controls.Add(this.CONNAMES);
             this.Controls.Add(this.LabelIntro);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.PREVIOUS);
             this.Controls.Add(this.NEXT);
             this.Controls.Add(this.SELECT);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.LabelCont);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.historial);
+            this.Controls.Add(this.holi);
+            this.Controls.Add(this.connect);
+            this.Controls.Add(this.disconnect);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Interfaz";
             this.Text = "Interfaz";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CONNAMES)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,18 +294,18 @@
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label LabelCont;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button disconnect;
+        private System.Windows.Forms.Button connect;
+        private System.Windows.Forms.Label holi;
+        private System.Windows.Forms.Button historial;
         private System.Windows.Forms.Button SELECT;
         private System.Windows.Forms.Button NEXT;
         private System.Windows.Forms.Button PREVIOUS;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label LabelIntro;
-        private System.Windows.Forms.Label Nombre;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridView CONNAMES;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }
 
