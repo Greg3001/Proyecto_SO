@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Diagnostics.Eventing.Reader;
+using System.Media;
 
 namespace Proyecto_V1
 {
@@ -16,6 +18,20 @@ namespace Proyecto_V1
     {
         Socket server;
         Thread atender;
+        bool connected;
+        bool log_in;
+        bool sign_in;
+        int contador = 0;
+
+        Image[] images = new Image[]
+        {
+            Image.FromFile("goku.png"),
+            Image.FromFile("Frieza.png"),
+            Image.FromFile("vegeta.png")
+        };
+
+        string[] names = new string[] { "Goku", "Freezer", "Vegeta" };
+
 
         delegate void DelegadoParaPonerTexto(string texto);
 
@@ -54,26 +70,40 @@ namespace Proyecto_V1
 
                         break;
 
-                    case 3:     //Recibimos notificacion
+                    case 3:      // LOG IN
 
-
-                        mensaje = trozos[1].Split('\0')[0];
-
-                        //Haz tu lo que no me dejas hacer a mi
-                        LabelCont.Invoke(new Action(() =>
-                        {
-                            LabelCont.Text = mensaje;
-                        }));
+                        mensaje = trozos[2].Split('\0')[0];
+                        MessageBox.Show(mensaje);
 
                         break;
+                    case 4:      // LOG IN
+
+                        mensaje = trozos[2].Split('\0')[0];
+                        MessageBox.Show(mensaje);
+
+                        break;
+                    case 5:      // LOG IN
+
+                        mensaje = trozos[2].Split('\0')[0];
+                        MessageBox.Show(mensaje);
+
+                        break;
+                    case 6:      // LOG IN
+
+                        mensaje = trozos[2].Split('\0')[0];
+                        MessageBox.Show(mensaje);
+
+                        break;
+
                 }
             }
         }
 
         //LOAD CON UNA IMAGEN DE FONDO (SE PODRIA HACER A PANTALLA COMPLETA)
 
-        private void Form1_Load(object sender, EventArgs e)
+        public void Form1_Load(object sender, EventArgs e)
         {
+
             // Set the form's border style to FixedSingle.
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
@@ -89,6 +119,27 @@ namespace Proyecto_V1
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
+            SELECT.Visible = false;
+            NEXT.Visible = false;
+            PREVIOUS.Visible = false;
+            LabelIntro.Visible = false;
+            pictureBox2.Visible = false;
+            Nombre.Visible = false;
+
+            if (sign_in == true || log_in ==true)
+            {
+                SELECT.Visible = true;
+                NEXT.Visible = true;
+                PREVIOUS.Visible = true;
+                LabelIntro.Visible = true;
+                pictureBox2.Visible = true;
+                Nombre.Visible = true;
+                Nombre.Text = this.names[this.contador];
+                Nombre.BackColor = Color.Empty;
+                pictureBox1.Image = Image.FromFile("FONDO4.png");
+                pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox2.Image = this.images[this.contador];
+            } 
         }
 
         //BOTON1
@@ -97,7 +148,17 @@ namespace Proyecto_V1
             ThreadStart ts = delegate { PonerEnMarchaFormulario(); };
             Thread T = new Thread(ts);
             T.Start();
-        }
+
+            //pictureBox1.Visible = false;
+            button1.Visible = false;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            button5.Visible = false;
+            button6.Visible = false;
+            LabelCont.Visible = false;
+            sign_in = true;
+    }
 
         private void button1_MouseEnter(object sender, EventArgs e)
         {
@@ -156,7 +217,7 @@ namespace Proyecto_V1
         //CONECTAR CON EL SERVIDOR
         private void button4_Click(object sender, EventArgs e)
         {
-            //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
+            //Creamos un IPEndPoint con el ip del servidor ypuerto del servidor 
             //al que deseamos conectarnos
             IPAddress direc = IPAddress.Parse("192.168.56.102");
             IPEndPoint ipep = new IPEndPoint(direc, 9070);
@@ -173,6 +234,7 @@ namespace Proyecto_V1
                 ThreadStart ts = delegate { AtenderServidor(); };
                 atender = new Thread(ts);
                 atender.Start();
+                connected = true;
 
             }
             catch (SocketException ex)
@@ -215,8 +277,7 @@ namespace Proyecto_V1
         }
         private void PonerEnMarchaMinigame()
         {
-            int cont = formularios3.Count;
-            Form minigame = new Minigame(cont, server);
+            Form minigame = new Minigame(server);
 
             minigame.ShowDialog();
         }
@@ -226,6 +287,37 @@ namespace Proyecto_V1
             ThreadStart ts = delegate { PonerEnMarchaMinigame(); };
             Thread T = new Thread(ts);
             T.Start();
+        }
+
+        private void NEXT_Click(object sender, EventArgs e)
+        {
+            this.contador++;
+
+            if (this.contador >= this.images.Length)
+            {
+                this.contador = 0;
+            }
+
+            Nombre.Text = this.names[this.contador];
+            Nombre.BackColor = Color.Empty;
+            this.pictureBox2.Image = this.images[this.contador];
+            this.pictureBox2.BackColor = Color.Black;
+            this.pictureBox2.Parent = this.pictureBox1;
+        }
+
+        private void PREVIOUS_Click(object sender, EventArgs e)
+        {
+            this.contador--;
+
+            if (this.contador < 0)
+            {
+                this.contador = this.images.Length - 1;
+            }
+            Nombre.Text = this.names[this.contador];
+            Nombre.BackColor = Color.Empty;
+            this.pictureBox2.Image = this.images[this.contador];
+            this.pictureBox2.BackColor = Color.Black;
+            this.pictureBox2.Parent = this.pictureBox1;
         }
     }
 }
