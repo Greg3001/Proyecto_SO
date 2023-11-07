@@ -10,7 +10,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Diagnostics.Eventing.Reader;
-using System.Media;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Proyecto_V1
 {
@@ -18,10 +18,25 @@ namespace Proyecto_V1
     {
         Socket server;
         Thread atender;
-        bool connected;
-        bool log_in;
-        bool sign_in;
+        bool connected = false;
+        bool log_in = false;
+        bool sign_in = false;
         int contador = 0;
+        string username;
+
+        //VALORS PER RECORDAR-ME DE LES IP I PORTS
+        //string IPaddloc = "192.168.56.102";
+        //int puertoloc = 5055;
+        //string IPaddshiv = "10.4.119.5";
+        //int puertoshiv = 50085;
+        //VALORS PER RECORDAR-ME DE LES IP I PORTS
+
+
+        //DEFINIM UNA RUTA IP I PORT
+        string IPadd = "10.4.119.5";
+        int puerto = 50085;
+
+
 
         Image[] images = new Image[]
         {
@@ -30,16 +45,14 @@ namespace Proyecto_V1
             Image.FromFile("vegeta.png")
         };
 
-        string[] names = new string[] { "Goku", "Freezer", "Vegeta" };
-
-
         delegate void DelegadoParaPonerTexto(string texto);
 
-        List<Form2> formularios = new List<Form2>();
-        List<Form3> formularios3 = new List<Form3>();
+        List<LogIn> formularios = new List<LogIn>();
+        List<SignIn> formularios3 = new List<SignIn>();
         public Interfaz()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
         private void AtenderServidor()
         {
@@ -51,59 +64,60 @@ namespace Proyecto_V1
                 string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
                 int codigo = Convert.ToInt32(trozos[0]);
                 string mensaje;
+                string[] verify;
 
-                int nform;
                 switch (codigo)
                 {
                     case 1:  // SIGN IN
 
-                        nform = Convert.ToInt32(trozos[1]);
-                        mensaje = trozos[2].Split('\0')[0];
-                        formularios[nform].TomaRespuesta1(mensaje);
-
-                        break;
-                    case 2:      // LOG IN
-
-                        nform = Convert.ToInt32(trozos[1]);
-                        mensaje = trozos[2].Split('\0')[0];
-                        formularios3[nform].TomaRespuesta2(mensaje);
-
-                        break;
-
-                    case 3:      // LOG IN
-
-                        mensaje = trozos[2].Split('\0')[0];
+                        mensaje = trozos[1].Split('\0')[0];
+                        verify = mensaje.Split(' ');
+                        if (verify[0] == "Usuario")
+                        {
+                            username = verify[1];
+                            log_in = true;
+                        }
                         MessageBox.Show(mensaje);
 
                         break;
-                    case 4:      // LOG IN
 
-                        mensaje = trozos[2].Split('\0')[0];
+                    case 2:  //LOG IN
+
+                        mensaje = trozos[1].Split('\0')[0];
+                        verify = mensaje.Split(' ');
+                        if (verify[0] == "Sesion")
+                        {
+                            username = verify[3].Split('.')[0];
+                            sign_in = true;
+                        }
                         MessageBox.Show(mensaje);
-
                         break;
-                    case 5:      // LOG IN
 
-                        mensaje = trozos[2].Split('\0')[0];
-                        MessageBox.Show(mensaje);
-
+                    case 3: //HISTORIAL
+                        //FALTA PER FER, COM HO PASSEM A UN ALTRE FORM?
+                        //HO FEM A LA MATEIXA INTERFAÇ COM LA LLISTA DE CONNECTATS??
                         break;
-                    case 6:      // LOG IN
 
-                        mensaje = trozos[2].Split('\0')[0];
-                        MessageBox.Show(mensaje);
-
+                    case 4:      // LLISTA DE CONNECTATS
+                        CONNAMES.Visible = true;
+                        int rowcount = Convert.ToInt32(trozos[1]);
+                        CONNAMES.RowCount = rowcount;
+                        CONNAMES.ColumnCount = 1;
+                        int count = 0;
+                        while( count < rowcount-1)
+                        {
+                            
+                            CONNAMES.Rows[count].Cells[0].Value = trozos[count+2];
+                            count++;
+                        }
+                        CONNAMES.Rows[count].Cells[0].Value = trozos[count+2].Split('\0')[0];
                         break;
 
                 }
             }
         }
-
-        //LOAD CON UNA IMAGEN DE FONDO (SE PODRIA HACER A PANTALLA COMPLETA)
-
         public void Form1_Load(object sender, EventArgs e)
         {
-
             // Set the form's border style to FixedSingle.
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
@@ -118,28 +132,52 @@ namespace Proyecto_V1
             pictureBox1.Image = image;
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-
+            CONNAMES.Visible = false;
             SELECT.Visible = false;
             NEXT.Visible = false;
             PREVIOUS.Visible = false;
+
             LabelIntro.Visible = false;
             pictureBox2.Visible = false;
-            Nombre.Visible = false;
 
-            if (sign_in == true || log_in ==true)
+            holi.Visible = true;
+            holi.BackColor = Color.Red;
+
+            connect.Location = new System.Drawing.Point(680, 500);
+            connect.Location = new System.Drawing.Point(680, 500);
+            disconnect.Visible = false;
+            //historial.Visible = false;
+
+            if (sign_in == true || log_in == true)
             {
+                button2.Visible = false;
+                button1.Visible = false;
+                historial.Visible = true;
+                CONNAMES.Visible = true;
                 SELECT.Visible = true;
                 NEXT.Visible = true;
                 PREVIOUS.Visible = true;
                 LabelIntro.Visible = true;
                 pictureBox2.Visible = true;
-                Nombre.Visible = true;
-                Nombre.Text = this.names[this.contador];
-                Nombre.BackColor = Color.Empty;
                 pictureBox1.Image = Image.FromFile("FONDO4.png");
                 pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox2.Image = this.images[this.contador];
-            } 
+            }
+            if (connected == true)
+            {
+                connect.Visible = false;
+                disconnect.Visible = true;
+                holi.BackColor = Color.Green;
+            }
+
+            if (connected == false)
+            {
+                disconnect.Visible = false;
+                connect.Visible = true;
+                holi.BackColor = Color.Red;
+            }
+
+
         }
 
         //BOTON1
@@ -152,11 +190,11 @@ namespace Proyecto_V1
             //pictureBox1.Visible = false;
             button1.Visible = false;
             button2.Visible = false;
-            button3.Visible = false;
-            button4.Visible = false;
-            button5.Visible = false;
-            button6.Visible = false;
-            LabelCont.Visible = false;
+            disconnect.Visible = false;
+            //connect.Visible = false;
+            historial.Visible = false;
+           
+            holi.BackColor = Color.Green;
             sign_in = true;
     }
 
@@ -203,15 +241,25 @@ namespace Proyecto_V1
             this.BackColor = Color.Gray;
             server.Shutdown(SocketShutdown.Both);
             server.Close();
+            MessageBox.Show("User disconnected successfully.");
+            connected = false;
+            if (connected == false)
+            {
+                disconnect.Visible = false;
+                connect.Visible = true;
+                holi.BackColor = Color.Red;
+            }
+
+
         }
         private void button3_MouseEnter(object sender, EventArgs e)
         {
-            button3.Size = new Size((int)(button1.Width * 1.2f), (int)(button1.Height * 1.2f));
+            disconnect.Size = new Size((int)(button1.Width * 1.2f), (int)(button1.Height * 1.2f));
         }
 
         private void button3_MouseLeave(object sender, EventArgs e)
         {
-            button3.Size = new Size((int)(button1.Width / 1.2f), (int)(button1.Height / 1.2f));
+            disconnect.Size = new Size((int)(button1.Width / 1.2f), (int)(button1.Height / 1.2f));
         }
 
         //CONECTAR CON EL SERVIDOR
@@ -219,8 +267,8 @@ namespace Proyecto_V1
         {
             //Creamos un IPEndPoint con el ip del servidor ypuerto del servidor 
             //al que deseamos conectarnos
-            IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 9070);
+            IPAddress direc = IPAddress.Parse(IPadd);
+            IPEndPoint ipep = new IPEndPoint(direc, puerto);
 
 
             //Creamos el socket 
@@ -229,12 +277,18 @@ namespace Proyecto_V1
             {
                 server.Connect(ipep);//Intentamos conectar el socket
                 this.BackColor = Color.Green;
-                MessageBox.Show("Conectado");
+                MessageBox.Show("User connected successfully.");
                 //pongo en marcha el thread que atenderá los mensajes del servidor
                 ThreadStart ts = delegate { AtenderServidor(); };
                 atender = new Thread(ts);
                 atender.Start();
                 connected = true;
+                if (connected == true)
+                {
+                    connect.Visible = false;
+                    disconnect.Visible = true;
+                    holi.BackColor = Color.Green;
+                }
 
             }
             catch (SocketException ex)
@@ -243,6 +297,8 @@ namespace Proyecto_V1
                 MessageBox.Show("No he podido conectar con el servidor");
                 return;
             }
+            
+
         }
         private void button4_MouseEnter(object sender, EventArgs e)
         {
@@ -257,36 +313,32 @@ namespace Proyecto_V1
         private void PonerEnMarchaFormulario()
         {
             int cont = formularios.Count;
-            Form2 f = new Form2(cont, server);
+            LogIn f = new LogIn(cont, server);
             formularios.Add(f);
             f.ShowDialog();
         }
         private void PonerEnMarchaFormulario2()
         {
             int cont = formularios3.Count;
-            Form3 f3 = new Form3(cont, server);
+            SignIn f3 = new SignIn(cont, server);
             formularios3.Add(f3);
             f3.ShowDialog();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Form historial = new Historial();
+            Form historial = new Historial(server, username);
             historial.Show();
 
         }
         private void PonerEnMarchaMinigame()
         {
-            Form minigame = new Minigame(server);
-
-            minigame.ShowDialog();
+            
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            ThreadStart ts = delegate { PonerEnMarchaMinigame(); };
-            Thread T = new Thread(ts);
-            T.Start();
+            
         }
 
         private void NEXT_Click(object sender, EventArgs e)
@@ -298,11 +350,7 @@ namespace Proyecto_V1
                 this.contador = 0;
             }
 
-            Nombre.Text = this.names[this.contador];
-            Nombre.BackColor = Color.Empty;
             this.pictureBox2.Image = this.images[this.contador];
-            this.pictureBox2.BackColor = Color.Black;
-            this.pictureBox2.Parent = this.pictureBox1;
         }
 
         private void PREVIOUS_Click(object sender, EventArgs e)
@@ -313,11 +361,18 @@ namespace Proyecto_V1
             {
                 this.contador = this.images.Length - 1;
             }
-            Nombre.Text = this.names[this.contador];
-            Nombre.BackColor = Color.Empty;
+
             this.pictureBox2.Image = this.images[this.contador];
-            this.pictureBox2.BackColor = Color.Black;
-            this.pictureBox2.Parent = this.pictureBox1;
+        }
+
+        private void disconnect_Enter(object sender, EventArgs e)
+        {
+            disconnect.Size = new Size((int)(disconnect.Width * 1.2f), (int)(disconnect.Height * 1.2f));
+        }
+
+        private void disconnect_Leave(object sender, EventArgs e)
+        {
+            disconnect.Size = new Size((int)(disconnect.Width / 1.2f), (int)(disconnect.Height / 1.2f));
         }
     }
 }

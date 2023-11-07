@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_V1
 {
-    partial class Form2
+    partial class LogIn
     {
         /// <summary>
         /// Required designer variable.
@@ -40,7 +40,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(8, 8);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(1634, 1060);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -72,7 +72,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(574, 255);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(366, 22);
             this.textBox1.TabIndex = 3;
@@ -80,7 +80,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(574, 357);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(366, 22);
             this.textBox2.TabIndex = 4;
@@ -89,15 +89,15 @@
             // 
             this.SignIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.875F, System.Drawing.FontStyle.Bold);
             this.SignIn.Location = new System.Drawing.Point(399, 484);
-            this.SignIn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SignIn.Margin = new System.Windows.Forms.Padding(2);
             this.SignIn.Name = "SignIn";
             this.SignIn.Size = new System.Drawing.Size(222, 127);
             this.SignIn.TabIndex = 5;
-            this.SignIn.Text = "SIGN IN";
+            this.SignIn.Text = "LOG IN";
             this.SignIn.UseVisualStyleBackColor = true;
             this.SignIn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form2
+            // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,8 +108,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Form2";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "LogIn";
             this.Text = "Iniciar Sesión";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
